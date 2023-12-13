@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Identifikasi Hama Tanaman Apel</title>
+</head>
+<body>
+  <h1>Identifikasi Hama Tanaman Apel</h1>
+  
+  <label for="symptoms">Gejala yang Diamati:</label>
+  <br>
+  <input type="checkbox" id="symptom1" name="symptoms" value="Daun Menguning">
+  <label for="symptom1">Daun Menguning</label><br>
+  <input type="checkbox" id="symptom2" name="symptoms" value="Bercak pada Daun">
+  <label for="symptom2">Bercak pada Daun</label><br>
+  <input type="checkbox" id="symptom3" name="symptoms" value="Perubahan pada Buah">
+  <label for="symptom3">Perubahan pada Buah</label><br><br>
+  <input type="checkbox" id="symptom4" name="symptoms" value="Keriting pada daun">
+  <label for="symptom4">Keriting pada daun</label><br><br>
+  <input type="checkbox" id="symptom5" name="symptoms" value="Kutu daun">
+  <label for="symptom5">Kutu daun</label><br><br>
+  <input type="checkbox" id="symptom6" name="symptoms" value="Lubang pada daun atau buah">
+  <label for="symptom6">Lubang pada daun atau buah</label><br><br>
+  <input type="checkbox" id="symptom7" name="symptoms" value="Melepuh pada daun">
+  <label for="symptom7">Melepuh pada daun</label><br><br>
+  <input type="checkbox" id="symptom8" name="symptoms" value="Daun berubah warna">
+  <label for="symptom8">Daun berubah warna</label><br><br>
+  <input type="checkbox" id="symptom9" name="symptoms" value="Penurunan pertumbuhan">
+  <label for="symptom9">Penurunan pertumbuhan</label><br><br>
+  <input type="checkbox" id="symptom10" name="symptoms" value="Bekas gigitan pada batang">
+  <label for="symptom10">Bekas gigitan pada batang</label><br><br>
+  <input type="checkbox" id="symptom11" name="symptoms" value="Busuk pada akar">
+  <label for="symptom11">Busuk pada akar</label><br><br>
+  <input type="checkbox" id="symptom12" name="symptoms" value="Daun mengering">
+  <label for="symptom12">Daun mengeringTunas mati</label><br><br>
+  <input type="checkbox" id="symptom13" name="symptoms" value="Tunas mati">
+  <label for="symptom13">Tunas mati</label><br><br>
+  <input type="checkbox" id="symptom14" name="symptoms" value="Perubahan tekstur daun">
+  <label for="symptom14">Perubahan tekstur daun</label><br><br>
+  <input type="checkbox" id="symptom15" name="symptoms" value="Pembusukan pada ranting">
+  <label for="symptom15">Pembusukan pada ranting</label><br><br>
+
+  <button onclick="identifyPest()">Identifikasi</button>
+
+  <p id="result"></p>
+
+  <script>
+    const rules = [
+      { symptoms: ['Daun Menguning'], pests: ['Kutu Daun'] },
+      { symptoms: ['Bercak pada Daun'], pests: ['Penyakit Jamur'] },
+      { symptoms: ['Perubahan pada Buah'], pests: ['Ulat Buah atau Hama Lalat Buah'] },
+      { symptoms: ['Keriting pada daun'], pests: ['Kutu Daun atau Kumbang Daun'] },
+      { symptoms: ['Kutu daun'], pests: ['Kutu Daun atau Hama Kutu Sisik'] },
+      { symptoms: ['Lubang pada daun atau buah'], pests: ['Ulat Buah atau Kumbang Daun'] },
+      { symptoms: ['Melepuh pada daun'], pests: ['Penyakit Jamur'] },
+      { symptoms: ['Daun berubah warna'], pests: ['Penyakit Jamur'] },
+      { symptoms: ['Penurunan pertumbuhan'], pests: ['Nematoda'] },
+      { symptoms: ['Bekas gigitan pada batang'], pests: ['Kumbang Daun Hama Belalang'] },
+      { symptoms: ['Busuk pada akar'], pests: ['Nematoda'] },
+      { symptoms: ['Daun mengering'], pests: ['Kutu Daun atau Hama Kutu Sisik'] },
+      { symptoms: ['Tunas mati'], pests: ['Kutu Daun atau Kumbang Daun '] },
+      { symptoms: ['Perubahan tekstur daun'], pests: ['Kutu Daun atau Hama Kutu Sisik'] },
+      { symptoms: ['Pembusukan pada ranting'], pests: ['Ulat Buah dan Kumbang Daun'] }
+      // ... aturan-aturan lainnya
+    ];
+
+    function identifyPest() {
+      const observedSymptoms = [];
+
+      document.querySelectorAll('input[name="symptoms"]:checked').forEach((checkbox) => {
+        observedSymptoms.push(checkbox.value);
+      });
+
+      const identifiedPests = [];
+
+      rules.forEach(rule => {
+        const ruleSymptoms = rule.symptoms;
+        const matches = ruleSymptoms.every(symptom => observedSymptoms.includes(symptom));
+
+        if (matches) {
+          identifiedPests.push(...rule.pests);
+        }
+      });
+
+      const resultElement = document.getElementById('result');
+      if (identifiedPests.length > 0) {
+        resultElement.textContent = 'Kemungkinan jenis hama berdasarkan gejala yang diamati: ' + [...new Set(identifiedPests)].join(', ');
+      } else {
+        resultElement.textContent = 'Tidak ada identifikasi hama berdasarkan gejala yang diamati.';
+      }
+    }
+  </script>
+</body>
+</html>
